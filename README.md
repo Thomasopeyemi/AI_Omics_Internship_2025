@@ -143,3 +143,138 @@ The analysis produces two key measures for each gene:
 # Gene_Id	
 # padj	
 # logFC
+
+
+Class 3B
+
+# =====================================================================
+#               AI and Biotechnology / Bioinformatics
+# =====================================================================
+
+# ---------------------------------------------------------------------
+#              AI and Omics Research Internship (2025)
+# ---------------------------------------------------------------------
+#             Module II: Introduction to Genomics Data Analysis
+# ---------------------------------------------------------------------
+#                     Microarray Data Analysis
+# =====================================================================
+
+# Topics covered in this script:
+# 1. Quality Control (QC) 
+# 2. RMA Normalization
+# 3. Pre-processing and Filtering
+
+#######################################################################
+#### 0. Install and Load Required Packages ####
+#######################################################################
+
+# Bioconductor provides R packages for analyzing omics data (genomics, transcriptomics, proteomics etc)
+
+# Install Bioconductor packages
+
+# Install CRAN packages for data manipulation
+
+# Load Required Libraries
+# -------------------------------------
+#### Download Series Matrix Files ####
+# -------------------------------------
+
+# Series matrix files are preprocessed text files containing 
+# expression values, sample annotations, and probe information.
+# Reason: Useful for quick exploratory analysis when raw CEL files are not needed.
+
+# Extract expression data matrix (genes/probes × samples)
+# Rows corresponds to probes and columns corresponds to samples
+
+# Extract feature (probe annotation) data
+# Rows corresponds to probes and columns corresponds to samples
+
+# Extract phenotype (sample metadata) data
+# Rows corresponds to samples and columns corresponds to probes
+
+# Check missing values in sample annotation
+
+# --------------------------------------
+#### Download Raw Data (CEL files) ####
+# --------------------------------------
+
+# CEL files contain raw probe-level intensity values for affymetrix platform.
+# Raw data required full preprocessing (e.g., RMA normalization, QC)
+
+# CEL files are large, and downloads may fail even with a good connection. 
+#It's recommended to download raw data directly from NCBI GEO
+
+# skip this step if you already downloaded data from NCBI
+
+# Fetch GEO supplementry files
+
+# Important Note: 
+# For Affymetrix microarray data, the preprocessing pipeline is the same 
+# whether raw CEL files are downloaded from NCBI GEO or ArrayExpress. 
+
+# (See tutorial for detailed explanation of this step: https://youtu.be/DZMxkHxwWag?feature=shared) 
+
+# Untar CEL files if compressed as .tar
+# Alternatively, unzip if data is compressed as .zip
+
+# Read CEL files into R as an AffyBatch object
+# Note down the annotation (e.g annotation= hgu133plus2) from this output.
+# You will need this in the next step to select and install the correct
+# annotation package (e.g., hgu133plus2.db) for mapping probe IDs to genes.
+
+# ---------------------------------------------------
+#### Quality Control (QC) Before Pre-processing ####
+# ---------------------------------------------------
+
+# QC identifies outlier arrays, hybridization problems, or technical biases.
+# arrayQualityMetrics: # This package generates automated QC reports for microarray data.
+# It applies multiple complementary methods to detect technical issues:
+#   - Boxplots and density plots: check distribution of intensities 
+#   - MA-plots: visualize systematic biases between arrays 
+#   - Heatmaps and distance matrices: identify clustering/outliers
+#   - PCA: detect unusual variation/detecting outliers or batch effects
+#
+# The output is an interactive HTML report (index.html file) summarizing QC results.
+
+# -------------------------------------------------------
+#### RMA (Robust Multi-array Average) Normalization ####
+# -------------------------------------------------------
+
+# RMA is a popular method for normalizing Affymetrix microarray data by:
+# 1. Background correcting, 
+# 2. normalizing probe intensities using quantile normalization and 
+# 3. summarizing them into gene-level expression values using a robust median polish algorithm.
+
+# This method reduces experimental variation across multiple arrays, 
+# producing more symmetrical and reliable normalized expression data 
+# compared to other approaches
+
+# QC after data normalization 
+
+# Extract normalized expression values into a data frame
+
+# ---------------------------------------------------------------------------
+#### Filter Low-Variance Transcripts (“soft” intensity based filtering) ####
+# ---------------------------------------------------------------------------
+# Filtering removes probes with low or uninformative expression signals.
+# Reason: Reduces noise and improves statistical power in differential expression & Machine Learning.
+
+# Calculate median intensity per probe across samples
+
+# Visualize distribution of probe median intensities
+
+# Set a threshold to remove low variance probes (dataset-specific, adjust accordingly)
+
+# Select probes above threshold
+# Rename filtered expression data with sample metadata
+
+# Overwrite processed data with filtered dataset 
+
+# -----------------------------------
+#### Phenotype Data Preparation ####
+# -----------------------------------
+
+# Phenotype data contains sample-level metadata such as condition, 
+# tissue type, or disease status.
+# Required to define experimental groups for statistical analysis. 
+# Define experimental groups (normal vs cancer)
