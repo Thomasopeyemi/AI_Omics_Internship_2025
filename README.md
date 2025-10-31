@@ -269,7 +269,6 @@ Class 3B
 # Rename filtered expression data with sample metadata
 
 # Overwrite processed data with filtered dataset 
-
 # -----------------------------------
 #### Phenotype Data Preparation ####
 # -----------------------------------
@@ -278,3 +277,29 @@ Class 3B
 # tissue type, or disease status.
 # Required to define experimental groups for statistical analysis. 
 # Define experimental groups (normal vs cancer)
+
+
+Class_3C
+
+#--------------------
+#### Assignment #### 
+#--------------------
+
+# Mapping probe IDs to gene symbols using AnnotationDbi
+#        i.  Used the appropriate annotation package for platform
+#        ii. Checking how many probes map to the same gene and duplicates handled
+
+# Performed differential gene expression analysis using the Limma package
+# Created a volcano plot showing upregulated and downregulated genes
+# Generated a heatmap of the top 25 DEGs
+# Saved DEG results (complete, upregulated, downregulated) as CSV files
+# Exported both plots as PNG images in the Results folder
+
+# Write a short result summary (4–5 lines) explaining 
+#        i.   how multiple probes can map to the same gene, how you handled duplicate probes,
+#        ii.  Which contrast or comparison did you perform (e.g cancer_vs_normal, diabetes_vs_normal etc)
+#        iii. and summarize how many genes were upregulated and downregulated based on your DEG results.
+
+1. Each probe may represent different region or expressions of the same gene. The duplicates were handled by averaging expression values.
+2. DEGs analysis compared Cancer Vs Normal expressions
+3. 403 genes were upregulated while 381 were downregulated
